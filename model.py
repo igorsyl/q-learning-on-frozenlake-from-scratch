@@ -52,8 +52,10 @@ def epsilon_greedy_action(q_table, state, epsilon, action_space, rng):
     else:
         return greedy_action(q_table, state)
 
-# Step 7 - decay_epsilon (not yet solved)
-# TODO: implement
+# Step 7 - decay_epsilon
+def decay_epsilon(epsilon, decay_rate, min_epsilon):
+    # return max(min_epsilon, epsilon * decay_rate)
+    return max(min_epsilon, epsilon * decay_rate)
 
 # Step 8 - td_target (not yet solved)
 # TODO: implement
