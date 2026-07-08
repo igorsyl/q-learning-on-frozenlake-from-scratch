@@ -35,8 +35,11 @@ def sample_random_action(action_space):
     # draw a uniformly random action from the given Gymnasium action space
     return action_space.sample().item()
 
-# Step 5 - should_explore (not yet solved)
-# TODO: implement
+# Step 5 - should_explore
+def should_explore(epsilon, rng):
+    """Return True with probability epsilon using the provided numpy Generator."""
+    # draw a uniform sample from rng and compare it to epsilon
+    return rng.uniform() < epsilon
 
 # Step 6 - epsilon_greedy_action (not yet solved)
 # TODO: implement
