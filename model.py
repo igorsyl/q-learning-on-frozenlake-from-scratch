@@ -75,7 +75,7 @@ def q_learning_update(q_table, state, action, reward, next_state, done, alpha, g
     # apply Q(s,a) += alpha * (target - Q(s,a)) in place and return the new Q value
     target = td_target(reward, gamma, q_table, next_state, done)
     error = td_error(target, q_table, state, action)
-    update = alpha * (target - q_table[state][action])
+    update = alpha * error
     q_table[state][action] += update
     return q_table[state][action]
 
@@ -101,8 +101,24 @@ def run_training_episode(env, q_table, epsilon, alpha, gamma, rng, max_steps=200
         if done: break
     return total_reward
 
-# Step 13 - train_q_learning (not yet solved)
-# TODO: implement
+# Step 13 - train_q_learning
+import numpy as np
+
+def train_q_learning(env, num_episodes, alpha=0.1, gamma=0.99, epsilon_start=1.0, epsilon_min=0.05, epsilon_decay=0.995, seed=0, max_steps=200):
+    # train a Q-learning agent for num_episodes; return (q_table, returns)
+    rng = np.random.default_rng(seed)
+    env.reset(seed=seed)
+    env.action_space.seed(seed)
+    num_states = env.observation_space.n
+    num_actions = env.action_space.n
+    q_table = init_q_table(num_states, num_actions)
+    episode_returns = []
+    epsilon = epsilon_start
+    for episode in range(num_episodes):
+        episode_return = run_training_episode(env, q_table, epsilon, alpha, gamma, rng, max_steps=max_steps)
+        episode_returns.append(episode_return)
+        epsilon = max(epsilon_min, epsilon * epsilon_decay)
+    return (q_table, episode_returns)
 
 # Step 14 - extract_greedy_policy (not yet solved)
 # TODO: implement
