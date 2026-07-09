@@ -120,8 +120,10 @@ def train_q_learning(env, num_episodes, alpha=0.1, gamma=0.99, epsilon_start=1.0
         epsilon = max(epsilon_min, epsilon * epsilon_decay)
     return (q_table, episode_returns)
 
-# Step 14 - extract_greedy_policy (not yet solved)
-# TODO: implement
+# Step 14 - extract_greedy_policy
+def extract_greedy_policy(q_table):
+    # return a 1D int64 array mapping each state to its best (argmax) action.
+    return np.argmax(q_table, 1)
 
 # Step 15 - run_greedy_episode (not yet solved)
 # TODO: implement
