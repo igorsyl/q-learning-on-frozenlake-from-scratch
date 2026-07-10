@@ -68,7 +68,7 @@ def td_target(reward, gamma, q_table, next_state, done):
 # Step 9 - td_error
 def td_error(target, q_table, state, action):
     # return the TD error: target minus current Q(state, action)
-    return target - q_table[state][action]
+    return target - q_table[state,action]
 
 # Step 10 - q_learning_update
 def q_learning_update(q_table, state, action, reward, next_state, done, alpha, gamma):
@@ -117,7 +117,7 @@ def train_q_learning(env, num_episodes, alpha=0.1, gamma=0.99, epsilon_start=1.0
     for episode in range(num_episodes):
         episode_return = run_training_episode(env, q_table, epsilon, alpha, gamma, rng, max_steps=max_steps)
         episode_returns.append(episode_return)
-        epsilon = max(epsilon_min, epsilon * epsilon_decay)
+        epsilon = decay_epsilon(epsilon, epsilon_decay, epsilon_min)
     return (q_table, episode_returns)
 
 # Step 14 - extract_greedy_policy
